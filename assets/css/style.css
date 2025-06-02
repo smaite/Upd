@@ -1,0 +1,88 @@
+/* Custom styles for NepalBooks Update Server */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.card-header {
+    border-bottom: none;
+    padding: 1rem 1.25rem;
+}
+
+.release-notes {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    white-space: pre-line;
+    font-size: 0.9rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+footer {
+    margin-top: 3rem;
+}
+
+/* Admin styles */
+.admin-header {
+    background-color: #343a40;
+    color: white;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.admin-nav {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-nav .nav-link {
+    color: #495057;
+}
+
+.admin-nav .nav-link.active {
+    font-weight: 600;
+    color: #007bff;
+}
+
+/* Form styles */
+.form-label {
+    font-weight: 500;
+}
+
+.form-text {
+    font-size: 0.8rem;
+}
+
+/* Badge styles */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+}
+
+/* Table styles */
+.table th {
+    font-weight: 600;
+    border-top: none;
+}
+
+/* Custom utilities */
+.text-small {
+    font-size: 0.875rem;
+}
+
+.text-muted {
+    color: #6c757d !important;
+} 
