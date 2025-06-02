@@ -1,0 +1,41 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# API routes
+RewriteRule ^api/updates/latest/(stable|beta)$ api/updates/latest.php?channel=$1 [L,QSA]
+RewriteRule ^api/updates/releases/(stable|beta)$ api/updates/releases.php?channel=$1 [L,QSA]
+RewriteRule ^api/updates/add$ api/updates/add.php [L,QSA]
+
+# Prevent directory listing
+Options -Indexes
+
+# Set default index file
+DirectoryIndex index.php
+
+# PHP settings
+<IfModule mod_php7.c>
+    php_flag display_errors Off
+    php_value upload_max_filesize 100M
+    php_value post_max_size 100M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Protect data and uploads directories
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect configuration files
+<FilesMatch "^(config\.php|functions\.php)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch> 
