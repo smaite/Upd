@@ -28,6 +28,12 @@ DirectoryIndex index.php
     Header set X-Frame-Options "SAMEORIGIN"
 </IfModule>
 
+# Protect sensitive files
+<FilesMatch "^\.env">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
 # Protect data and uploads directories
 <FilesMatch "^\.">
     Order allow,deny

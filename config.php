@@ -3,23 +3,48 @@
  * Configuration file for NepalBooks Update Server
  */
 
-// Database configuration (if using a database)
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'nepalbooks_updates');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// Load environment variables from .env file
+function loadEnv($path) {
+    if (!file_exists($path)) {
+        return false;
+    }
+
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos($line, '#') === 0) continue;
+        
+        list($name, $value) = explode('=', $line, 2);
+        $name = trim($name);
+        $value = trim($value);
+        
+        if (!array_key_exists($name, $_ENV)) {
+            putenv(sprintf('%s=%s', $name, $value));
+            $_ENV[$name] = $value;
+            $_SERVER[$name] = $value;
+        }
+    }
+}
+
+// Load .env file
+loadEnv(__DIR__ . '/.env');
+
+// Database configuration
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME', getenv('DB_NAME') ?: 'nepalbooks_updates');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
 
 // File storage configuration
 define('DATA_FILE', __DIR__ . '/data/releases.json');
 define('UPLOAD_DIR', __DIR__ . '/uploads/');
 
 // Admin credentials
-define('ADMIN_USERNAME', 'admin');
-define('ADMIN_PASSWORD', 'admin123'); // Change this in production!
+define('ADMIN_USERNAME', getenv('ADMIN_USERNAME') ?: 'admin');
+define('ADMIN_PASSWORD', getenv('ADMIN_PASSWORD') ?: 'admin123');
 
 // Server settings
-define('BASE_URL', 'http://localhost/nepalbooks/upd');
-define('API_BASE', BASE_URL . '/api');
+define('BASE_URL', getenv('BASE_URL') ?: 'http://localhost/nepalbooks/upd');
+define('API_BASE', getenv('API_BASE') ?: BASE_URL . '/api');
 
 // Update channels
 $CHANNELS = ['stable', 'beta'];
@@ -39,27 +64,17 @@ if (!file_exists(DATA_FILE)) {
     $defaultData = [
         'stable' => [
             [
-                'tag_name' => 'v1.0.0',
-                'version' => '1.0.0',
-                'published_at' => '2023-01-15T10:00:00Z',
-                'body' => "Initial stable release\n- Feature 1\n- Feature 2\n- Bug fixes",
+                'tag_name' => 'v1.1.2',
+                'version' => '1.1.2',
+                'published_at' => '2025-06-02T10:00:00Z',
+                'body' => "Updated Services",
                 'mandatory' => false,
                 'channel' => 'stable',
                 'assets' => [
                     [
                         'platform' => 'win',
-                        'browser_download_url' => BASE_URL . '/uploads/nepalbooks-1.0.0-win.exe',
-                        'name' => 'nepalbooks-1.0.0-win.exe'
-                    ],
-                    [
-                        'platform' => 'mac',
-                        'browser_download_url' => BASE_URL . '/uploads/nepalbooks-1.0.0-mac.dmg',
-                        'name' => 'nepalbooks-1.0.0-mac.dmg'
-                    ],
-                    [
-                        'platform' => 'linux',
-                        'browser_download_url' => BASE_URL . '/uploads/nepalbooks-1.0.0-linux.AppImage',
-                        'name' => 'nepalbooks-1.0.0-linux.AppImage'
+                        'browser_download_url' => BASE_URL . '/uploads/nepalbooks-1.1.2-win.exe',
+                        'name' => 'nepalbooks-1.1.2-win.exe'
                     ]
                 ]
             ]
